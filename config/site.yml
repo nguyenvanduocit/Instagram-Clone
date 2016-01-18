@@ -1,0 +1,16 @@
+default:
+  base_title: 'Instagram'
+  title_sep: '|'
+
+  production:
+  base_title: 'Instagram'
+  title_sep: '|'
+
+development:
+  base_title: 'Instagram'
+  title_sep: '|'
+
+
+test:
+  base_title: 'Instagram'
+  title_sep: '|'

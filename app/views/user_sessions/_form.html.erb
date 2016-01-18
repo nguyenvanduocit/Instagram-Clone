@@ -1,0 +1,18 @@
+<%= form_for(:login,url: login_path) do |f| %>
+    <div class="form-group">
+      <%= f.label :email %><br>
+      <%= f.text_field :email, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password %><br>
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
+    <div class="actions">
+      <%= f.submit nil, class:'btn btn-default' %>
+    </div>
+<% end %>
