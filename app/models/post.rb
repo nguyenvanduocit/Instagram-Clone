@@ -3,9 +3,11 @@ class Post < ActiveRecord::Base
   has_many :hashtags, through: :hashtag_relationships
   has_many :hashtag_relationships
   belongs_to :user, inverse_of: :posts
+  mount_uploader :picture, PictureUploader
   default_scope -> { order(created_at: :desc) } #take care : http://stackoverflow.com/questions/25087336/why-is-using-the-rails-default-scope-often-recommend-against
   validates :user_id, presence: true
   validates :content, presence: true, allow_nil: false, length: { maximum: 255 }
+  validate  :picture_size
 
   def add_hashtag(hashtag)
     if hashtag.is_a? Hashtag
@@ -38,6 +40,12 @@ class Post < ActiveRecord::Base
       hashtags.find_by(name: hashtag)
     end
   end
-
+  private
+  # Validates the size of an uploaded picture.
+  def picture_size
+    if picture.size > 5.megabytes
+      errors.add(:picture, "should be less than 5MB")
+    end
+  end
 
 end

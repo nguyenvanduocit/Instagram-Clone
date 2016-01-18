@@ -26,7 +26,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Paginate
 gem 'will_paginate'
+
+# Upload
+gem 'carrierwave'
 
 gem 'bootstrap-will_paginate'
 

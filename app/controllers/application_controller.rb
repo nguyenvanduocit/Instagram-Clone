@@ -19,11 +19,4 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-
-  def filter_owner
-    unless current_user? @user
-      flash[:danger] = "You have not permission"
-      redirect_to root_path
-    end
-  end
 end

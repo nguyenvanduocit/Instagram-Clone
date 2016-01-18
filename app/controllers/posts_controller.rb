@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :filter_logged_in, only: [:edit, :update, :destroy]
+  before_action :filter_logged_in, only: [:new, :edit, :update, :destroy]
   before_action :filter_owner, only: [:edit, :update, :destroy]
   # GET /posts
   # GET /posts.json
@@ -67,9 +67,12 @@ class PostsController < ApplicationController
     def set_post
       @post = Post.find(params[:id])
     end
-
+    def filter_owner
+      @post = current_user.posts.find_by(id: params[:id])
+      redirect_to root_url if @post.nil?
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:content)
+      params.require(:post).permit(:content, :picture)
     end
 end
