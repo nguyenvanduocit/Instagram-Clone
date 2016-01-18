@@ -62,5 +62,5 @@ group :development do
 end
 
 
-# Bootstrap scss
-gem 'bootstrap-sass'
+# materialize scss
+gem 'materialize-sass'

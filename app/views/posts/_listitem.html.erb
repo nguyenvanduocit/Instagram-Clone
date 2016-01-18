@@ -1,10 +1,22 @@
-<li id="micropost-<%= post.id %>">
-  <span class="user"><%= link_to post.user.user_name, post.user %></span>
-  <span class="content"><%= post.content %></span>
-  <span class="timestamp">
-    Posted <%= link_to time_ago_in_words(post.created_at), post %> ago.
-  </span>
-  <% if current_user? @user %>
-      <%= link_to "Delete", post, method: :delete, data: {confirm: "Are you sure"} %>
-  <% end %>
-</li>
+<div class="card feed-listitem">
+  <div class="card-panel grey lighten-5">
+    <div class="row valign-wrapper">
+      <div class="col s2">
+        <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=holder&w=50&h=50" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+      </div>
+      <div class="col s10">
+        <span class="user left"><%= link_to post.user.user_name, post.user %></span>
+        <span class="timestamp right"><%= link_to time_ago_in_words(post.created_at), post, class: 'badge' %></span>
+      </div>
+    </div>
+  </div>
+  <div class="card-image">
+    <%= image_tag post.picture.url if post.picture? %>
+  </div>
+  <div class="card-content">
+    <p><%= post.content %></p>
+  </div>
+  <div class="card-action">
+    <input type="text" placeholder="Type your comment...">
+  </div>
+</div>
