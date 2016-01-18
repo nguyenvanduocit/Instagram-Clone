@@ -1,0 +1,32 @@
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1><%= @user.user_name %></h1>
+      <span><%= link_to "view my profile", @user %></span>
+    </section>
+    <section class="stats">
+      <%= render 'users/stats' %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <h3><%= @title %></h3>
+    <% if @users.any? %>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Role</th>
+        <th>User name</th>
+        <th>Email</th>
+        <th colspan="3">action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%= render partial: 'listitem', collection: @users, as: :user %>
+      </tbody>
+    </table>
+
+      <%= will_paginate %>
+    <% end %>
+  </div>
+</div>

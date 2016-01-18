@@ -1,0 +1,6 @@
+<tr>
+  <td><%= user.roles.first.name %></td>
+  <td><%= user.user_name %></td>
+  <td><%= user.email %></td>
+  <td><%= link_to 'Show', user, class: "btn btn-primary" %> <%= link_to 'Edit', edit_user_path(user), class: "btn btn-primary" %><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
+</tr>

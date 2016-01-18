@@ -1,5 +1,8 @@
 <p id="notice"><%= notice %></p>
-
+<section class="stats">
+  <%= render 'users/stats' %>
+</section>
+<%= render 'follow_form' if logged_in? %>
 <p>
   <strong>User name:</strong>
   <%= @user.user_name %>
@@ -10,5 +13,14 @@
   <%= @user.email %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class="col-md-8">
+  <% if @user.posts.any? %>
+      <h3>Post (<%= @user.posts.count %>)</h3>
+      <ol class="microposts">
+        <%= render partial: 'posts/listitem', collection: @posts, as: :post %>
+      </ol>
+      <%= will_paginate @posts %>
+  <% end %>
+</div>
+
+<%= link_to 'Edit', edit_user_path(@user) %>

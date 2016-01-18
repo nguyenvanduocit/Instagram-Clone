@@ -1,17 +1,18 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :filter_logged_in, only: [:edit, :update, :destroy]
-  before_action :filter_permission, only: [:edit, :update, :destroy]
+  before_action :filter_logged_in, only: [:edit, :update, :destroy, :followers, :following]
+  before_action :filter_owner, only: [:edit, :update, :destroy]
   before_action :filter_not_logged_in, only: [:new]
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page])
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @posts = @user.posts.paginate(page: params[:page])
   end
 
   # GET /users/new
@@ -27,8 +28,10 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    memberRole = Role.find_by(name: 'member')
     respond_to do |format|
-      if @user.save
+      if memberRole && @user.save
+        @user.add_role(memberRole)
         flash[:success] = 'User was successfully created.'
         format.html { redirect_to @user }
         format.json { render :show, status: :created, location: @user }
@@ -64,29 +67,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def following
+    @title = "Following"
+    @user  = User.find(params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
   private
-
-  def filter_logged_in
-    unless logged_in?
-      store_location
-      flash[:danger] = 'You have to login to access this page'
-      redirect_to login_path
-    end
-  end
-
-  def filter_not_logged_in
-    if logged_in?
-      flash[:danger] = 'you can not access this page'
-      redirect_to root_path
-    end
-  end
-
-  def filter_permission
-    unless current_user? @user
-      flash[:danger] = "You have not permission"
-      redirect_to root_path
-    end
-  end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user

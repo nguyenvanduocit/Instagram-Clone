@@ -1,3 +1,8 @@
 <%
   provide :title, 'home'
 %>
+<% if logged_in? %>
+    <%= render 'posts/form' %>
+    <%= render partial: 'posts/listitem', collection: @feed_posts, as: :post %>
+    <%= will_paginate @feed_posts %>
+<% end %>

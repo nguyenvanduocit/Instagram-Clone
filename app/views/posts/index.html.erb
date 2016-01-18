@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Posts</h1>
+
+<%= render partial: 'listitem', collection: @posts, as: :post %>
+
+<br>
+
+<%= will_paginate @posts %>
+
+<%= link_to 'New Post', new_post_path %>
