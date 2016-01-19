@@ -38,4 +38,10 @@ class PostTest < ActiveSupport::TestCase
     assert_not @post.has_hashtag("new_hash_tag")
 
   end
+
+  test "add comment" do
+    @post.comments.build(content: "Comment", user_id: @user.id)
+
+  end
+
 end

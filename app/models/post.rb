@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  #has_many :comments, inverse_of: :post
+  has_many :comments, inverse_of: :post, dependent: :destroy
   has_many :hashtags, through: :hashtag_relationships
   has_many :hashtag_relationships
   belongs_to :user, inverse_of: :posts
